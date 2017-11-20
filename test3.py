@@ -12,9 +12,10 @@ access_secret = 'QoQL9w6I44Eb3DmmPQAVgdmzpo1vLkVRfWqBvbujxBrwE'
 auth = OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
-path="C:\\Users\\MicroComSci\\Documents\\FetchDataFromTweet\\tweet"
+path="C:\\Users\\MicroComSci\\Documents\\FetchDataFromTweet\\bitcoin"
 countline = 1 
 countfile = 1
+countitem = 1 
 
 def createdFolder(path,stringDate):
     folderCreateCheck=path+"\\"+stringDate
@@ -40,18 +41,19 @@ def checkCountline():
          
 
 #for status in tweepy.Cursor(api.home_timeline).items(10):
-for status in tweepy.Cursor(api.user_timeline, id="nontakhon").items(10):
+for status in tweepy.Cursor(api.user_timeline, id="btctn").items(2500):
    #str dateToString=print(" "+status.created_at)
     #dateOnly=dateToString
-    stringDate=status.created_at.strftime('%d%m%Y')
+    stringDate=status.created_at.strftime('%m%d%Y')
     checkCountline()
     pathfile=createdFolder(path,stringDate)+"\\"+stringDate+"_"+str(countfile)+".txt"
     countline+=1
 
     filetext=open(pathfile,'a')
-    filetext.write(stringDate+"  "+status.text) #2 space
+    filetext.write(str((stringDate+"  "+status.text).encode("utf-8")))#2 space
     filetext.write("\n")
+    countitem+=1
 
-
+print("gotcha i am " + str(countitem))
 
     
